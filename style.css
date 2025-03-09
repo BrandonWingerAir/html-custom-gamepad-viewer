@@ -16,19 +16,24 @@ div {
     user-select: none;
 }
 
-#button-a {
-    width: 85px;
-    top: 150px;
-    left: 200px;
-    z-index: 2;
-    opacity: 0.5;
+/* Variable Overlays */
+.overlay-container {
+    display: flex;
+    position: relative;
 }
 
+.overlay {
+    position: absolute;
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+}
+
+/* Bumpers (Clutch)*/
 #button-left-bumper {
     width: 85px;
     opacity: 0.5;
 }
 
+/* Triggers (Front Brake, Gas Throttle) */
 #button-left-trigger {
     width: 85px;
     opacity: 0.5;
@@ -39,26 +44,13 @@ div {
     opacity: 0.5;
 }
 
-#joystick-left-container {
-    display: flex;
-    position: relative;
-}
-
-.handlebar-container {
-    display: flex;
-    position: relative;
-}
-
+/* Left Joystick (Handlebars Steering) */
 .joystick-left {
     width: 250px;
     opacity: 0.5;
 }
 
-.overlay {
-    position: absolute;
-    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-}
-
+/* Right Joystick (Rider Lean) */
 .circle {
     position: relative;
     width: 300px;
@@ -75,4 +67,23 @@ div {
     background-color: red;
     border-radius: 50%;
     transform: translate(-50%, -50%);
+}
+
+/* Right Trigger (Gas Throttle) */
+#enginer-container {
+    height: 200px;
+}
+
+#engineOverlay {
+    width: 85px;
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+}
+
+/*  Right Buttons (Rear Brake) */
+#button-a {
+    width: 85px;
+    top: 150px;
+    left: 200px;
+    z-index: 2;
+    opacity: 0.5;
 }
