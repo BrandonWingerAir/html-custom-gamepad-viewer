@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const brakeOverlay = document.getElementById('frontBrakeOverlay');
     const engineOverlay = document.getElementById('engineOverlay');
-    const overlay = document.getElementById('colorOverlay');
+    const overlayLeft = document.getElementById('colorOverlayLeft');
+    const overlayRight = document.getElementById('colorOverlayRight');
 
     const deadZone = 0.2;
 
@@ -55,9 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
             leftStickX = normalizeInput(leftStickX, deadZone);
             
             // Calculate percentage from center (0) to right (1)
-            const steerRightPercentage = Math.max(0, leftStickX) * 100;      
+            const steerRightPercentage = Math.max(0, leftStickX) * 100;
 
-            overlay.style.clipPath = `polygon(0 0, ${steerRightPercentage}% 0, ${steerRightPercentage}% 100%, 0 100%)`;
+            overlayRight.style.clipPath = `polygon(0 0, ${steerRightPercentage}% 0, ${steerRightPercentage}% 100%, 0 100%)`;
+
+            // Calculate percentage from center (0) to left (-1)
+            const steerLeftPercentage = Math.max(0, -leftStickX) * 100;
+
+            overlayLeft.style.clipPath = `polygon(${100 - steerLeftPercentage}% 0, 100% 0, 100% 100%, ${100 - steerLeftPercentage}% 100%)`;
+
 
             // Right Stick (Rider Lean Control)
             let rightStickX = gamepad.axes[2];
@@ -73,6 +80,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById("button-a").style.opacity = "1";
             } else {
                 document.getElementById("button-a").style.opacity = "0.5";
+            }
+
+            // Button: Right Bumper (Foot Drag)
+            if (gamepad.buttons[5].pressed) {
+                document.getElementById("buttonFootDrag").style.opacity = "1";
+            } else {
+                document.getElementById("buttonFootDrag").style.opacity = "0.5";
+            }
+
+            // Button: Left Bumper (Clutch)
+            if (gamepad.buttons[4].pressed) {
+                document.getElementById("button-left-bumper").style.opacity = "1";
+            } else {
+                document.getElementById("button-left-bumper").style.opacity = "0.5";
             }
 
             // Left Trigger (Front Brake)
@@ -94,6 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle gamepad disconnection
     window.addEventListener('gamepaddisconnected', (event) => {
-    console.log(`Gamepad disconnected: ${event.gamepad.id}`);
+        console.log(`Gamepad disconnected: ${event.gamepad.id}`);
     });
 });

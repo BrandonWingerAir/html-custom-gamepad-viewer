@@ -1,7 +1,12 @@
+html {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
 #gamepad-viewer {
     position: relative;
-    width: 500px;
-    height: 300px;
+    width: 300px;
+    height: 500px;
+    border: 2px solid #000;
 }
 
 /* #controller-body {
@@ -18,24 +23,24 @@ div {
 
 /* Variable Overlays */
 .overlay-container {
-    display: flex;
     position: relative;
 }
 
 .overlay {
     position: absolute;
+    left: 0;
     clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
 }
 
 /* Bumpers (Clutch)*/
 #button-left-bumper {
-    width: 85px;
+    width: 67px;
     opacity: 0.5;
 }
 
-/* Triggers (Front Brake, Gas Throttle) */
+/* Triggers (Gas Throttle) */
 #button-left-trigger {
-    width: 85px;
+    width: 72px;
     opacity: 0.5;
 }
 
@@ -45,16 +50,28 @@ div {
 }
 
 /* Left Joystick (Handlebars Steering) */
+.joystick-left-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .joystick-left {
-    width: 250px;
+    width: 140px;
     opacity: 0.5;
+}
+
+.icon-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 /* Right Joystick (Rider Lean) */
 .circle {
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 150px;
+    height: 150px;
     border: 3px solid #333;
     border-radius: 50%;
     overflow: hidden;
@@ -75,25 +92,28 @@ div {
 }
 
 #frontBrakeOverlay {
-    width: 85px;
+    width: 72px;
     clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 }
 
 /* Right Trigger (Gas Throttle) */
-#enginer-container {
-    height: 200px;
+#engine-container img {
+    width: 111px;
 }
 
 #engineOverlay {
-    width: 85px;
     clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
 }
 
 /*  Right Buttons (Rear Brake) */
 #button-a {
-    width: 85px;
-    top: 150px;
-    left: 200px;
-    z-index: 2;
+    height: 62px;
+    width: auto;
+    opacity: 0.5;
+}
+
+/* Right Bumper (Foot Drag) */
+#buttonFootDrag {
+    width: 80px;
     opacity: 0.5;
 }
