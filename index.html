@@ -7,50 +7,57 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="connectController">CONNECT CONTROLLER</div>
+
     <div id="gamepad-viewer">
         <!-- <img id="controller-body" src="" alt="Controller"> -->
         <div class="icon-row">
-            <img id="button-left-bumper" src="images/clutch-handle.jpeg">
+            <img id="button-left-bumper" src="images/clutch-handle.png">
 
             <div class="overlay-container">
-                <img id="button-left-trigger" src="images/front-brake-handle.jpg">
-                <img id="frontBrakeOverlay" class="overlay" src="images/front-brake-handle.jpg">
+                <img id="button-left-trigger" src="images/front-brake-handle.png">
+                <img id="frontBrakeOverlay" class="overlay" src="images/front-brake-handle.png">
             </div>
         </div>
 
         <div class="joystick-left-container">
             <div class="overlay-container">
                 <img id="joystick-left-left" class="joystick-left" src="images/handlebars-left.png" alt="Left Joystick">
-                <img id="colorOverlayLeft" class="joystick-left overlay" src="images/handlebars-left.png" alt="Left Joystick">
+                <img id="colorOverlayLeft" class="overlay" src="images/handlebars-left.png" alt="Left Joystick">
             </div>
 
             <div class="overlay-container">
                 <img id="joystick-left-right" class="joystick-left" src="images/handlebars-right.png" alt="Left Joystick">
-                <img id="colorOverlayRight" class="joystick-left overlay" src="images/handlebars-right.png" alt="Left Joystick">
+                <img id="colorOverlayRight" class="overlay" src="images/handlebars-right.png" alt="Left Joystick">
             </div>
         </div>
 
         <div class="icon-row">
             <div id="engine-container" class="overlay-container">
-                <img id="button-right-trigger" src="images/engine.png">
-                <img id="engineOverlay" class="overlay" src="images/engine-gray.png">
+                <img id="button-right-trigger" src="images/engine-black.png">
+                <img id="engineOverlay" class="overlay" src="images/engine.png">
             </div>
 
-            <img id="button-a" src="images/rear-brake-pedal.jpg">
+            <img id="button-a" src="images/rear-brake-pedal.png">
         </div>
 
-        <div class="circle">
-            <div class="dot" id="dot"></div>        
+        <div class="icon-row">
+            <div class="circle">
+                <div class="dot" id="dot"></div>      
+                
+                <div id="mx-icon">
+                    <img src="images/mx-top-down-view-icon.png" alt="">
+                </div>
+            </div>
+    
+            <div>
+                <img id="buttonFootDrag" src="images/mx-boot.png" alt="">
+            </div>
         </div>
-
-        <div>
-            <img id="buttonFootDrag" src="images/mx-boot.png" alt="">
-        </div>
-
         <div>
             <p>BrandoTech © 2025</p>
         </div>
-        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

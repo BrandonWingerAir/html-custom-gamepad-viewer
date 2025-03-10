@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Listen for gamepad connection
     window.addEventListener('gamepadconnected', (event) => {
     console.log(`Gamepad connected: ${event.gamepad.id}`);
+    document.getElementById("connectController").style.display = 'none';
 
     function updateOverlayRight(triggerValue) {
         const clipPercentage = triggerValue * 100; // Convert trigger value (0 to 1) to percentage
@@ -116,5 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle gamepad disconnection
     window.addEventListener('gamepaddisconnected', (event) => {
         console.log(`Gamepad disconnected: ${event.gamepad.id}`);
+        document.getElementById('connectController').style.display = 'none';
     });
 });
