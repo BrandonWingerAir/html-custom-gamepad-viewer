@@ -7,14 +7,8 @@ html {
     width: 300px;
     height: 420px;
     border: 2px solid #000;
+    padding-top: 14px;
 }
-
-/* #controller-body {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-} */
 
 div {
     pointer-events: none;
@@ -24,6 +18,8 @@ div {
 /* Variable Overlays */
 .overlay-container {
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .overlay {
@@ -34,27 +30,27 @@ div {
     width: 140px;
 }
 
-/* Bumpers (Clutch)*/
+#row-1 {
+    height: 50px;
+}
+
+/* Clutch */
 #button-left-bumper {
-    width: 67px;
+    height: 20px;
     opacity: 0.5;
 }
 
-/* Triggers (Gas Throttle) */
-#button-left-trigger {
-    width: 72px;
-    opacity: 0.5;
-}
-
+/* Gas Throttle */
 #button-right-trigger {
     width: 85px;
 }
 
-/* Left Joystick (Handlebars Steering) */
+/* Handlebars (Steering) */
 .joystick-left-container {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 63px;
 }
 
 .joystick-left {
@@ -66,9 +62,18 @@ div {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
 }
 
-/* Right Joystick (Rider Lean) */
+#row-3 {
+    height: 114px;
+}
+
+#row-4 {
+    height: 180px;
+}
+
+/* Rider Lean */
 .circle {
     position: relative;
     width: 150px;
@@ -82,7 +87,7 @@ div {
     position: absolute;
     width: 20px;
     height: 20px;
-    background-color: red;
+    background-color: #0d47a1;
     border-radius: 50%;
     transform: translate(calc(-50% - 2px), -50%);
 }
@@ -98,7 +103,12 @@ div {
     width: 40px;
 }
 
-/* Left Trigger (Front Brake) */
+/* Front Brake */
+#button-left-trigger {
+    width: 72px;
+    opacity: 0.5;
+}
+
 #front-brake-container {
     height: 200px;
 }
@@ -108,7 +118,7 @@ div {
     clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 }
 
-/* Right Trigger (Gas Throttle) */
+/* Gas Throttle */
 #engine-container img {
     width: 111px;
     opacity: 0.5;
@@ -119,15 +129,15 @@ div {
     opacity: 1;
 }
 
-/*  Right Buttons (Rear Brake) */
+/*  Rear Brake */
 #button-a {
     height: 62px;
     width: auto;
     opacity: 0.5;
 }
 
-/* Right Bumper (Foot Drag) */
+/* Foot Drag */
 #buttonFootDrag {
-    width: 80px;
+    width: 75px;
     opacity: 0.5;
 }
