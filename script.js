@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const brakeOverlay = document.getElementById('frontBrakeOverlay');
     const engineOverlay = document.getElementById('engineOverlay');
     const overlay = document.getElementById('colorOverlay');
 
@@ -7,6 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Listen for gamepad connection
     window.addEventListener('gamepadconnected', (event) => {
     console.log(`Gamepad connected: ${event.gamepad.id}`);
+
+    function updateOverlayRight(triggerValue) {
+        const clipPercentage = triggerValue * 100; // Convert trigger value (0 to 1) to percentage
+        brakeOverlay.style.clipPath = `polygon(calc(100% - ${clipPercentage}%) 0, 100% 0, 100% 100%, calc(100% - ${clipPercentage}%) 100%)`;
+    }
 
     function updateOverlayHeight(triggerValue) {
         const clipPercentage = triggerValue * 100; // Convert trigger value (0 to 1) to percentage
@@ -43,11 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const gamepad = navigator.getGamepads()[event.gamepad.index];
 
         if (gamepad) {
-            // Right Trigger (Gas Throttle)
-            const triggerValue = gamepad.buttons[7].value;        
-
-            updateOverlayHeight(triggerValue);
-
             // Left Stick (Handlebar Steering Control)
             let leftStickX = gamepad.axes[0]; // (value from -1 to 1) 
 
@@ -67,12 +68,22 @@ document.addEventListener('DOMContentLoaded', () => {
         
             updateDotPosition(rightStickX, rightStickY);
 
-            // Button: A (Rear Brake)
-            if (gamepad.buttons[0].pressed) {
+            // Button: B (Rear Brake)
+            if (gamepad.buttons[1].pressed) {
                 document.getElementById("button-a").style.opacity = "1";
             } else {
                 document.getElementById("button-a").style.opacity = "0.5";
             }
+
+            // Left Trigger (Front Brake)
+            const leftTrigger = gamepad.buttons[6].value;        
+
+            updateOverlayRight(leftTrigger);
+
+            // Right Trigger (Gas Throttle)
+            const rightTrigger = gamepad.buttons[7].value;        
+
+            updateOverlayHeight(rightTrigger);
         }
 
         requestAnimationFrame(updateOverlay);

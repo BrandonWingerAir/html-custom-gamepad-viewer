@@ -69,6 +69,16 @@ div {
     transform: translate(-50%, -50%);
 }
 
+/* Left Trigger (Front Brake) */
+#front-brake-container {
+    height: 200px;
+}
+
+#frontBrakeOverlay {
+    width: 85px;
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+
 /* Right Trigger (Gas Throttle) */
 #enginer-container {
     height: 200px;
