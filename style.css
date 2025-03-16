@@ -1,13 +1,24 @@
-html {
+html, body {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+#connectController {
+    position: absolute;
+    top: 20px;
+    left: 20px;
 }
 
 #gamepad-viewer {
-    position: relative;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
     width: 300px;
     height: 420px;
     border: 2px solid #000;
     padding-top: 14px;
+    background: rgba(245, 245, 245, 0.1);
 }
 
 div {
@@ -140,4 +151,42 @@ div {
 #buttonFootDrag {
     width: 75px;
     opacity: 0.5;
+}
+
+/* Controls Section */
+#controls-section {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    width: 345px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#controls-section > p {
+    text-align: center;
+}
+
+#control-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid #757575;
+}
+
+#control-grid > * {
+    border: 1px solid #757575;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#control-grid > *:nth-of-type(odd) p {
+    margin-left: 14px;
+}
+
+#control-grid > *:nth-child(even) {
+    justify-content: center;
 }

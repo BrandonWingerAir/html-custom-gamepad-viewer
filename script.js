@@ -6,6 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const deadZone = 0.2;
 
+    // Toggle controls menu when "H" key is pressed
+    const controlsMenu = document.getElementById('controls-section');
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key.toLowerCase() === 'h') {
+            controlsMenu.style.display = controlsMenu.style.display === 'none' ? 'block' : 'none';
+        }
+    });
+
     // Listen for gamepad connection
     window.addEventListener('gamepadconnected', (event) => {
     console.log(`Gamepad connected: ${event.gamepad.id}`);

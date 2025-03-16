@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        
     <div id="connectController">CONNECT CONTROLLER</div>
-
     <div id="gamepad-viewer">
         <div id="row-1" class="icon-row">
             <img id="button-left-bumper" src="images/clutch-handle.png">
-
+            
             <div class="overlay-container">
                 <img id="button-left-trigger" src="images/front-brake-handle.png">
                 <img id="frontBrakeOverlay" class="overlay" src="images/front-brake-handle.png">
             </div>
         </div>
-
+        
         <div class="joystick-left-container">
             <div class="overlay-container">
                 <img id="joystick-left-left" class="joystick-left" src="images/handlebars-left.png" alt="Left Joystick">
                 <img id="colorOverlayLeft" class="overlay" src="images/handlebars-left.png" alt="Left Joystick">
             </div>
-
+            
             <div class="overlay-container">
                 <img id="joystick-left-right" class="joystick-left" src="images/handlebars-right.png" alt="Left Joystick">
                 <img id="colorOverlayRight" class="overlay" src="images/handlebars-right.png" alt="Left Joystick">
             </div>
         </div>
-
+        
         <div id="row-3" class="icon-row">
             <div id="engine-container" class="overlay-container">
                 <img id="button-right-trigger" src="images/engine-black.png">
                 <img id="engineOverlay" class="overlay" src="images/engine.png">
             </div>
-
+            
             <img id="button-a" src="images/rear-brake-pedal.png">
         </div>
-
+        
         <div id="row-4" class="icon-row">
             <div class="circle">
                 <div class="dot" id="dot"></div>      
@@ -48,12 +48,60 @@
                     <img src="images/mx-top-down-view-icon.png" alt="">
                 </div>
             </div>
-    
+            
             <div>
                 <img id="buttonFootDrag" src="images/mx-boot.png" alt="">
             </div>
         </div>
     </div>
+
+    <div id="controls-section">
+        <p><u>Controls (Press H to hide)</u></p>
+
+        <div id="control-grid">
+            <div>
+                <p>Clutch:</p>
+            </div>
+            <div>
+                <p>LB</p>
+            </div>
+
+            <div>
+                <p>Front Brake:</p>
+            </div>
+            <div>
+                <p>A</p>
+            </div>
+
+            <div>
+                <p>Steering:</p>
+            </div>
+            <div>
+                <p>L Thumbstick</p>
+            </div>
+
+            <div>
+                <p>Rear Brake:</p>
+            </div>
+            <div>
+                <p>B</p>
+            </div>
+
+            <div>
+                <p>Lean:</p>
+            </div>
+            <div>
+                <p>R Thumbstick</p>
+            </div>
+
+            <div>
+                <p>Dab:</p>
+            </div>
+            <div>
+                <p>RB</p>
+            </div>
+        </div>
+    </div> 
 
     <script src="script.js"></script>
 
