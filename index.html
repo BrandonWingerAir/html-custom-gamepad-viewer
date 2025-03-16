@@ -3,7 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>MX Bikes - Controller Media Overlay</title>
+        <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
@@ -56,7 +57,7 @@
     </div>
 
     <div id="controls-section">
-        <p><u>Controls (Press H to hide)</u></p>
+        <p><u><b>Controls</b> (Press "H" to hide)</u></p>
 
         <div id="control-grid">
             <div>
@@ -70,14 +71,17 @@
                 <p>Front Brake:</p>
             </div>
             <div>
-                <p>A</p>
+                <p>LT</p>
             </div>
 
             <div>
                 <p>Steering:</p>
             </div>
             <div>
-                <p>L Thumbstick</p>
+                <select id="steerControl">
+                    <option value="left_stick">L Joystick</option>
+                    <option value="right_stick">R Joystick</option>
+                </select>
             </div>
 
             <div>
@@ -91,7 +95,10 @@
                 <p>Lean:</p>
             </div>
             <div>
-                <p>R Thumbstick</p>
+                <select id="leanControl">
+                    <option value="right_stick">R Joystick</option>
+                    <option value="left_stick">L Joystick</option>
+                </select>
             </div>
 
             <div>
@@ -106,5 +113,6 @@
     <script src="script.js"></script>
 
     <!-- Developed by Brandon Winger-Air © 2025 -->
+    <!-- Favicon: <a href="https://www.flaticon.com/free-icons/stunts" title="stunts icons">Stunts icon created by Roundicons Premium - Flaticon</a> -->
 </body>
 </html>

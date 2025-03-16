@@ -3,8 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const engineOverlay = document.getElementById('engineOverlay');
     const overlayLeft = document.getElementById('colorOverlayLeft');
     const overlayRight = document.getElementById('colorOverlayRight');
+    const leanDot = document.getElementById('dot');
 
     const deadZone = 0.2;
+
+    let leanControlX = 2;
+    let leanControlY = 3;
+
+    let steerControlX = 0;
 
     // Toggle controls menu when "H" key is pressed
     const controlsMenu = document.getElementById('controls-section');
@@ -17,110 +23,135 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Listen for gamepad connection
     window.addEventListener('gamepadconnected', (event) => {
-    console.log(`Gamepad connected: ${event.gamepad.id}`);
-    document.getElementById("connectController").style.display = 'none';
+        console.log(`Gamepad connected: ${event.gamepad.id}`);
+        document.getElementById("connectController").style.display = 'none';
 
-    function updateOverlayRight(triggerValue) {
-        const clipPercentage = triggerValue * 100; // Convert trigger value (0 to 1) to percentage
-        brakeOverlay.style.clipPath = `polygon(calc(100% - ${clipPercentage}%) 0, 100% 0, 100% 100%, calc(100% - ${clipPercentage}%) 100%)`;
-    }
-
-    function updateOverlayHeight(triggerValue) {
-        const clipPercentage = triggerValue * 100; // Convert trigger value (0 to 1) to percentage
-        engineOverlay.style.clipPath = `polygon(0 ${100 - clipPercentage}%, 100% ${100 - clipPercentage}%, 100% 100%, 0 100%)`;
-    }
-
-    function normalizeInput(value, deadZone) {
-        // If the value is within the dead zone, treat it as zero
-        if (Math.abs(value) < deadZone) {
-            return 0;
+        function updateOverlayRight(triggerValue) {
+            const clipPercentage = triggerValue * 100; // Convert trigger value (0 to 1) to percentage
+            brakeOverlay.style.clipPath = `polygon(calc(100% - ${clipPercentage}%) 0, 100% 0, 100% 100%, calc(100% - ${clipPercentage}%) 100%)`;
         }
 
-        // Normalize the value to adjust for the dead zone
-        const sign = Math.sign(value); // Preserve direction
-        const adjustedValue = (Math.abs(value) - deadZone) / (1 - deadZone);
+        function updateOverlayHeight(triggerValue) {
+            const clipPercentage = triggerValue * 100; // Convert trigger value (0 to 1) to percentage
+            engineOverlay.style.clipPath = `polygon(0 ${100 - clipPercentage}%, 100% ${100 - clipPercentage}%, 100% 100%, 0 100%)`;
+        }
 
-        return sign * adjustedValue; // Return normalized value with direction
-    }
+        function normalizeInput(value, deadZone) {
+            // If the value is within the dead zone, treat it as zero
+            if (Math.abs(value) < deadZone) {
+                return 0;
+            }
 
-    const dot = document.getElementById('dot');
+            // Normalize the value to adjust for the dead zone
+            const sign = Math.sign(value); // Preserve direction
+            const adjustedValue = (Math.abs(value) - deadZone) / (1 - deadZone);
 
-    function updateDotPosition(x, y) {
-        const circle = document.querySelector('.circle');
-        const radius = circle.offsetWidth / 2;
-        
-        const posX = (x * radius) + radius;
-        const posY = (y * radius) + radius;
+            return sign * adjustedValue; // Return normalized value with direction
+        }
 
-        dot.style.left = `${posX}px`;
-        dot.style.top = `${posY}px`;
-    }
+        function updateOverlay() {
+            const gamepad = navigator.getGamepads()[event.gamepad.index];
 
-    function updateOverlay() {
-        const gamepad = navigator.getGamepads()[event.gamepad.index];
+            // Controls Display
+            if (gamepad) {
+                // Handlebar Steering Control
+                let leftStickX = gamepad.axes[steerControlX]; // (value from -1 to 1) 
+                leftStickX = normalizeInput(leftStickX, deadZone);
+                
+                const steerRightPercentage = Math.max(0, leftStickX) * 100; // From center (0) to right (1)
+                overlayRight.style.clipPath = `polygon(0 0, ${steerRightPercentage}% 0, ${steerRightPercentage}% 100%, 0 100%)`;
 
-        if (gamepad) {
-            // Left Stick (Handlebar Steering Control)
-            let leftStickX = gamepad.axes[0]; // (value from -1 to 1) 
+                const steerLeftPercentage = Math.max(0, -leftStickX) * 100; // From center (0) to left (-1)
+                overlayLeft.style.clipPath = `polygon(${100 - steerLeftPercentage}% 0, 100% 0, 100% 100%, ${100 - steerLeftPercentage}% 100%)`;
 
-            leftStickX = normalizeInput(leftStickX, deadZone);
+                // Rider Lean Control
+                function updateDotPosition(x, y) {
+                    const circle = document.querySelector('.circle');
+                    const radius = circle.offsetWidth / 2;
+                    
+                    const posX = (x * radius) + radius;
+                    const posY = (y * radius) + radius;
             
-            // Calculate percentage from center (0) to right (1)
-            const steerRightPercentage = Math.max(0, leftStickX) * 100;
+                    leanDot.style.left = `${posX}px`;
+                    leanDot.style.top = `${posY}px`;
+                }
 
-            overlayRight.style.clipPath = `polygon(0 0, ${steerRightPercentage}% 0, ${steerRightPercentage}% 100%, 0 100%)`;
+                let rightStickX = gamepad.axes[leanControlX];
+                let rightStickY = gamepad.axes[leanControlY];
 
-            // Calculate percentage from center (0) to left (-1)
-            const steerLeftPercentage = Math.max(0, -leftStickX) * 100;
+                rightStickX = normalizeInput(rightStickX, deadZone);
+                rightStickY = normalizeInput(rightStickY, deadZone);
+            
+                updateDotPosition(rightStickX, rightStickY);
 
-            overlayLeft.style.clipPath = `polygon(${100 - steerLeftPercentage}% 0, 100% 0, 100% 100%, ${100 - steerLeftPercentage}% 100%)`;
+                // Button: B (Rear Brake)
+                if (gamepad.buttons[1].pressed) {
+                    document.getElementById("button-a").style.opacity = "1";
+                } else {
+                    document.getElementById("button-a").style.opacity = "0.5";
+                }
 
+                // Button: Right Bumper (Foot Drag)
+                if (gamepad.buttons[5].pressed) {
+                    document.getElementById("buttonFootDrag").style.opacity = "1";
+                } else {
+                    document.getElementById("buttonFootDrag").style.opacity = "0.5";
+                }
 
-            // Right Stick (Rider Lean Control)
-            let rightStickX = gamepad.axes[2];
-            let rightStickY = gamepad.axes[3];
+                // Button: Left Bumper (Clutch)
+                if (gamepad.buttons[4].pressed) {
+                    document.getElementById("button-left-bumper").style.opacity = "1";
+                } else {
+                    document.getElementById("button-left-bumper").style.opacity = "0.5";
+                }
 
-            rightStickX = normalizeInput(rightStickX, deadZone);
-            rightStickY = normalizeInput(rightStickY, deadZone);
-        
-            updateDotPosition(rightStickX, rightStickY);
+                // Left Trigger (Front Brake)
+                const leftTrigger = gamepad.buttons[6].value;        
 
-            // Button: B (Rear Brake)
-            if (gamepad.buttons[1].pressed) {
-                document.getElementById("button-a").style.opacity = "1";
-            } else {
-                document.getElementById("button-a").style.opacity = "0.5";
+                updateOverlayRight(leftTrigger);
+
+                // Right Trigger (Gas Throttle)
+                const rightTrigger = gamepad.buttons[7].value;        
+
+                updateOverlayHeight(rightTrigger);
             }
 
-            // Button: Right Bumper (Foot Drag)
-            if (gamepad.buttons[5].pressed) {
-                document.getElementById("buttonFootDrag").style.opacity = "1";
-            } else {
-                document.getElementById("buttonFootDrag").style.opacity = "0.5";
-            }
-
-            // Button: Left Bumper (Clutch)
-            if (gamepad.buttons[4].pressed) {
-                document.getElementById("button-left-bumper").style.opacity = "1";
-            } else {
-                document.getElementById("button-left-bumper").style.opacity = "0.5";
-            }
-
-            // Left Trigger (Front Brake)
-            const leftTrigger = gamepad.buttons[6].value;        
-
-            updateOverlayRight(leftTrigger);
-
-            // Right Trigger (Gas Throttle)
-            const rightTrigger = gamepad.buttons[7].value;        
-
-            updateOverlayHeight(rightTrigger);
+            requestAnimationFrame(updateOverlay);
         }
 
-        requestAnimationFrame(updateOverlay);
-    }
+        updateOverlay(); // Start the loop
+    });
 
-    updateOverlay(); // Start the loop
+    // Map Controls
+    const steerControlBox = document.getElementById('steerControl');
+    const leanControlBox = document.getElementById('leanControl');
+
+    steerControlBox.addEventListener('change', (event) => {
+        if (event.target.value == 'left_stick') {
+            steerControlX = 0;
+            leanControlX = 2;
+            leanControlY = 3;
+            leanControlBox.value = 'right_stick'
+        } else if (event.target.value == 'right_stick') {
+            steerControlX = 2;
+            leanControlX = 0;
+            leanControlY = 1;
+            leanControlBox.value = 'left_stick'
+        }
+    });
+    
+    leanControlBox.addEventListener('change', (event) => {
+        if (event.target.value == 'right_stick') {
+            steerControlX = 0;
+            leanControlX = 2;
+            leanControlY = 3;
+            steerControlBox.value = 'left_stick';
+        } else if (event.target.value == 'left_stick') {
+            steerControlX = 2;
+            leanControlX = 0;
+            leanControlY = 1;
+            steerControlBox.value = 'right_stick';
+        }
     });
 
     // Handle gamepad disconnection

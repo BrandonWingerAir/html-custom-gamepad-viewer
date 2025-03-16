@@ -15,14 +15,13 @@ html, body {
     bottom: 20px;
     left: 20px;
     width: 300px;
-    height: 420px;
+    height: 412px;
     border: 2px solid #000;
     padding-top: 14px;
     background: rgba(245, 245, 245, 0.1);
 }
 
 div {
-    pointer-events: none;
     user-select: none;
 }
 
@@ -189,4 +188,8 @@ div {
 
 #control-grid > *:nth-child(even) {
     justify-content: center;
+}
+
+select {
+    font-size: 15px;
 }
