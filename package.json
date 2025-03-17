@@ -1,0 +1,27 @@
+{
+  "name": "html-custom-gamepad-viewer",
+  "version": "1.0.0",
+  "main": "script.js",
+  "bin": {
+    "mx-bikes-gamepad-viewer": "server.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrandonWingerAir/html-custom-gamepad-viewer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrandonWingerAir/html-custom-gamepad-viewer/issues"
+  },
+  "homepage": "https://github.com/BrandonWingerAir/html-custom-gamepad-viewer#readme",
+  "description": "",
+  "dependencies": {
+    "pkg": "^5.8.1"
+  }
+}
