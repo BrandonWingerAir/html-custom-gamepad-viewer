@@ -2,7 +2,7 @@
 
 ### Instructions:
 
-Run the .exe file then add localhost:3000 as a browser source in OBS Studio.
+Run the .exe file then add localhost:3000 as a browser source in OBS Studio or software.
 
 ## Xbox One Controller:
 

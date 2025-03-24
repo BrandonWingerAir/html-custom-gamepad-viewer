@@ -51,19 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function updateOverlay() {
             const gamepad = navigator.getGamepads()[event.gamepad.index];
-
+    
             // Controls Display
             if (gamepad) {
-                // Handlebar Steering Control
-                let leftStickX = gamepad.axes[steerControlX]; // (value from -1 to 1) 
-                leftStickX = normalizeInput(leftStickX, deadZone);
-                
-                const steerRightPercentage = Math.max(0, leftStickX) * 100; // From center (0) to right (1)
-                overlayRight.style.clipPath = `polygon(0 0, ${steerRightPercentage}% 0, ${steerRightPercentage}% 100%, 0 100%)`;
-
-                const steerLeftPercentage = Math.max(0, -leftStickX) * 100; // From center (0) to left (-1)
-                overlayLeft.style.clipPath = `polygon(${100 - steerLeftPercentage}% 0, 100% 0, 100% 100%, ${100 - steerLeftPercentage}% 100%)`;
-
                 // Rider Lean Control
                 function updateDotPosition(x, y) {
                     const circle = document.querySelector('.circle');
@@ -75,50 +65,59 @@ document.addEventListener('DOMContentLoaded', () => {
                     leanDot.style.left = `${posX}px`;
                     leanDot.style.top = `${posY}px`;
                 }
-
+    
+                // Handle Dot Position (Independent of Buttons/Triggers)
                 let rightStickX = gamepad.axes[leanControlX];
                 let rightStickY = gamepad.axes[leanControlY];
-
+    
                 rightStickX = normalizeInput(rightStickX, deadZone);
                 rightStickY = normalizeInput(rightStickY, deadZone);
-            
-                updateDotPosition(rightStickX, rightStickY);
-
+    
+                updateDotPosition(rightStickX, rightStickY); // Always update the dot position
+    
+                // Handlebar Steering Control
+                let leftStickX = gamepad.axes[steerControlX]; // (value from -1 to 1) 
+                leftStickX = normalizeInput(leftStickX, deadZone);
+                
+                const steerRightPercentage = Math.max(0, leftStickX) * 100; // From center (0) to right (1)
+                overlayRight.style.clipPath = `polygon(0 0, ${steerRightPercentage}% 0, ${steerRightPercentage}% 100%, 0 100%)`;
+    
+                const steerLeftPercentage = Math.max(0, -leftStickX) * 100; // From center (0) to left (-1)
+                overlayLeft.style.clipPath = `polygon(${100 - steerLeftPercentage}% 0, 100% 0, 100% 100%, ${100 - steerLeftPercentage}% 100%)`;
+    
                 // Button: A (Rear Brake)
                 if (gamepad.buttons[0].pressed) {
                     document.getElementById("button-a").style.opacity = "1";
                 } else {
                     document.getElementById("button-a").style.opacity = "0.5";
                 }
-
+    
                 // Button: Right Bumper (Foot Drag)
                 if (gamepad.buttons[5].pressed) {
                     document.getElementById("buttonFootDrag").style.opacity = "1";
                 } else {
                     document.getElementById("buttonFootDrag").style.opacity = "0.5";
                 }
-
+    
                 // Button: Left Bumper (Clutch)
                 if (gamepad.buttons[4].pressed) {
                     document.getElementById("button-left-bumper").style.opacity = "1";
                 } else {
                     document.getElementById("button-left-bumper").style.opacity = "0.5";
                 }
-
+    
                 // Left Trigger (Front Brake)
-                const leftTrigger = gamepad.buttons[6].value;        
-
+                const leftTrigger = gamepad.buttons[6].value; 
                 updateOverlayRight(leftTrigger);
-
+    
                 // Right Trigger (Gas Throttle)
-                const rightTrigger = gamepad.buttons[7].value;        
-
+                const rightTrigger = gamepad.buttons[7].value;
                 updateOverlayHeight(rightTrigger);
             }
-
+    
             requestAnimationFrame(updateOverlay);
         }
-
+    
         updateOverlay(); // Start the loop
     });
 
