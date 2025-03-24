@@ -84,8 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
                 updateDotPosition(rightStickX, rightStickY);
 
-                // Button: B (Rear Brake)
-                if (gamepad.buttons[1].pressed) {
+                // Button: A (Rear Brake)
+                if (gamepad.buttons[0].pressed) {
                     document.getElementById("button-a").style.opacity = "1";
                 } else {
                     document.getElementById("button-a").style.opacity = "0.5";
